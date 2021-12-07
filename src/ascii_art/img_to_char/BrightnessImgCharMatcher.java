@@ -9,7 +9,7 @@ public class BrightnessImgCharMatcher {
     private Image image;
     private int pixels;
     private final String fontName;
-    private int[] charsBrightness;
+    private double[] charsBrightness;
     private Character[] charSet;
 
 
@@ -25,18 +25,18 @@ public class BrightnessImgCharMatcher {
     }
 
 
-    private int[] bulidCharsBrightnessArray(Character[] charSet) {
+    private double[] bulidCharsBrightnessArray(Character[] charSet) {
         this.charSet = charSet;
-        int [] brightness = new int[charSet.length];
+        double [] brightness = new double[charSet.length];
         for(int i = 0; i< charSet.length; i++){
             brightness[i] =  getCharBrightness(charSet[i]);
         }
     return lingearTran(brightness);
     }
 
-    private int getCharBrightness(Character c) {
+    private double getCharBrightness(Character c) {
         boolean[][] booleansArray = CharRenderer.getImg(c, 16, fontName);
-        int counter = 0;
+        float counter = 0;
         for(boolean[] arr : booleansArray){
             for (boolean ch : arr){
                 if(ch){
@@ -44,17 +44,18 @@ public class BrightnessImgCharMatcher {
                 }
             }
         }
-        return counter;
+        return counter/256;
     }
 
-    public int[] lingearTran(int[] arr){
-        int [] brightness = new int[arr.length];
-        int min = Arrays.stream(arr).min().getAsInt();
-        int max = Arrays.stream(arr).max().getAsInt();
-        int denominator = max - min;
+    public double[] lingearTran(double[] arr){
+        double [] brightness = new double[arr.length];
+        double min = Arrays.stream(arr).min().getAsDouble();
+        double max = Arrays.stream(arr).max().getAsDouble();
+        double denominator = max - min;
 
         for(int i = 0; i< brightness.length; i++){
-            brightness[i] = (arr[i]-min)*256/ denominator;
+            brightness[i] = (arr[i]-min)  //*255
+                                                / denominator;
         }
         return brightness;
     }
@@ -88,8 +89,8 @@ public class BrightnessImgCharMatcher {
     }
 
     private double getPixelBrightness(Color color) {
-        return ((color.getRed()+1) * 0.2126 + (color.getGreen()+1) * 0.7152 +
-                (color.getBlue()+1) * 0.0722);
+        return (color.getRed() * 0.2126 + color.getGreen() * 0.7152 +
+                color.getBlue()* 0.0722)/255;
     }
 
     private char[][] convertImageToAscii(Image img, int numCharsInRow){
@@ -117,7 +118,7 @@ public class BrightnessImgCharMatcher {
         int minIndex = 0;
         double minDistance = Double.MAX_VALUE;
         for(int i = 0; i<charSet.length; i++){
-            if (Math.abs(charsBrightness[i]-imageBrightness)< minDistance){
+            if (Math.abs(charsBrightness[i]-imageBrightness)<= minDistance){
                 minIndex = i;
                 minDistance = Math.abs(charsBrightness[i]-imageBrightness);
             }

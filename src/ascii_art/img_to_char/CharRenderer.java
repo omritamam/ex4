@@ -44,17 +44,17 @@ public class CharRenderer {
 
     //for debugging
     public static void printBoolArr(boolean[][] arr) {
-        for(int row = 0; row< arr.length; row++){
-            for(int col = 0; col < arr[0].length; col++){
-                System.out.print(arr[row][col]? " ": "*");
+        for (boolean[] booleans : arr) {
+            for (int col = 0; col < arr[0].length; col++) {
+                System.out.print(booleans[col] ? " " : "*");
             }
             System.out.println();
         }
     }
     public static void printCharArr(char[][] arr) {
-        for(int row = 0; row< arr.length; row++){
-            for(int col = 0; col < arr[0].length; col++){
-                System.out.print(arr[row][col]);
+        for (char[] chars : arr) {
+            for (int col = 0; col < arr[0].length; col++) {
+                System.out.print(chars[col]);
             }
             System.out.println();
         }

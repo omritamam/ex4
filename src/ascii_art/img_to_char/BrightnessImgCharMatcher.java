@@ -96,17 +96,32 @@ public class BrightnessImgCharMatcher {
     private char[][] convertImageToAscii(Image img, int numCharsInRow){
         pixels = img.getWidth() / numCharsInRow;
 
-        char[][] asciiArt = new char[numCharsInRow][numCharsInRow];
-        double[] result = new double[numCharsInRow *numCharsInRow];
+        char[][] asciiArt = new char[img.getHeight()/pixels][numCharsInRow];
+        double[] result = new double[numCharsInRow * img.getHeight()/pixels];
         int i = 0;
-        for(Image subImage : image.squareSubImagesOfSize(image.getWidth()/numCharsInRow)){
+        int i2 = 0;
+
+        for(Image subImage : image.squareSubImagesOfSize(pixels)) {
+            i2++;
+        }
+
+        System.out.println("pixels are "+pixels);
+        System.out.println("img.getHeight() are "+img.getHeight());
+        System.out.println("img.getWidth() are "+img.getWidth());
+        System.out.println("numCharsInRow are "+numCharsInRow);
+        System.out.println("images num is "+i2);
+        System.out.println();
+        for(Image subImage : image.squareSubImagesOfSize(pixels)){
+            if(i ==result.length){
+                break;
+            }
             result[i]=  (getImageBrightness(subImage));
             i++;
         }
        // result2 = lingearTran(result);
         i=0;
         for(int k =0; k< img.getHeight()/pixels; k++){
-            for(int j =0; j< img.getWidth()/pixels; j++) {
+            for(int j =0; j< numCharsInRow; j++) {
                 asciiArt[k][j] = matchChar(result[i]);
                 i++;
             }

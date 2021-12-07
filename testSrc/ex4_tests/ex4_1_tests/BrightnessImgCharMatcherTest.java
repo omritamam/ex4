@@ -65,10 +65,10 @@ public class BrightnessImgCharMatcherTest {
 	 */
 	@Test
 	void chooseCharsMidTest() throws IOException {
-		checkResult(MARIO, 16);
-		checkResult(MARIO, 64);
-		checkResult(MARIO, 128);
-		checkResult(MARIO, 256);
+//		checkResult(MARIO, 16);
+//		checkResult(MARIO, 64);
+//		checkResult(MARIO, 128);
+//		checkResult(MARIO, 256);
 		checkResult(MARIO, 563);
 	}
 

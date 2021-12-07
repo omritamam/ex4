@@ -42,19 +42,14 @@ public class CharRenderer {
         return matrix;
     }
 
-    //for debugging
+    /**
+     * prints an array
+      * @param arr - array of booleans
+     */
     public static void printBoolArr(boolean[][] arr) {
         for (boolean[] booleans : arr) {
             for (int col = 0; col < arr[0].length; col++) {
                 System.out.print(booleans[col] ? " " : "*");
-            }
-            System.out.println();
-        }
-    }
-    public static void printCharArr(char[][] arr) {
-        for (char[] chars : arr) {
-            for (int col = 0; col < arr[0].length; col++) {
-                System.out.print(chars[col]);
             }
             System.out.println();
         }
